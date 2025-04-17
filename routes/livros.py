@@ -10,6 +10,14 @@ FILEPATH = "data/livros.csv"
 def listar_livros():
     return [Livro(**livro) for livro in read_csv(FILEPATH)]
 
+
+# Contar livros
+@router.get("/quantidade", response_model=dict)
+def contar_livros():
+    livros = read_csv(FILEPATH)
+    return {"quantidade": len(livros)}
+
+
 # Adicionar livro
 @router.post("/", response_model=Livro)
 def adicionar_livro(livro: Livro):
@@ -50,3 +58,4 @@ def deletar_livro(id: int):
             write_csv(FILEPATH, livros)
             return {"mensagem": "Livro deletado com sucesso"}
     raise HTTPException(status_code=404, detail="Livro não encontrado")
+

@@ -10,6 +10,14 @@ FILEPATH = "data/usuarios.csv"
 def listar_usuarios():
     return [Usuario(**usuario) for usuario in read_csv(FILEPATH)]
 
+
+# Contar usuários
+@router.get("/quantidade", response_model=dict)
+def contar_usuarios():
+    usuarios = read_csv(FILEPATH)
+    return {"quantidade": len(usuarios)}
+
+
 # Obter usuário por ID
 @router.get("/{usuario_id}", response_model=Usuario)
 def obter_usuario(usuario_id: int):
@@ -50,3 +58,4 @@ def deletar_usuario(usuario_id: int):
             write_csv(FILEPATH, usuarios)
             return {"mensagem": "Usuário deletado com sucesso"}
     raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+
