@@ -1,12 +1,13 @@
 # main.py
 from fastapi import FastAPI
-from routes import livros
+from routes import livros, usuarios
 
 app = FastAPI(title="API Biblioteca Comunitária",
               description="Gerenciamento de livros usando FastAPI e CSV",
               version="1.0.0")
 
 app.include_router(livros.router, prefix="/livros", tags=["Livros"])
+app.include_router(usuarios.router, prefix="/usuarios", tags=["Usuários"])
 
 @app.get("/")
 def home():
