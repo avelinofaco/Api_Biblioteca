@@ -1,7 +1,7 @@
 id,titulo,autor,genero,ano_publicacao,disponivel
-2,informatica,Joao,romance,1999,True
+2,informatica,Joao,romance,1999,False
 1,matematica basica,aragao,literatura,1997,True
-3,O Código da Vinci,Dan Brown,Suspense,2003,True
+3,O Código da Vinci,Dan Brown,Suspense,2003,False
 4,Dom Casmurro,Machado de Assis,Romance,1899,True
 5,A Revolução dos Bichos,George Orwell,Sátira,1945,True
 6,O Hobbit,J.R.R. Tolkien,Fantasia,1937,True

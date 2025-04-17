@@ -1,0 +1,3 @@
+id,livro_id,usuario_id,data_emprestimo,data_devolucao,status
+1,2,1,2025-04-17,2025-04-19,pendente
+2,3,2,2025-04-17,2025-04-20,pendente
