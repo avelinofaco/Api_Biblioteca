@@ -2,6 +2,10 @@ from fastapi import APIRouter, HTTPException
 from models import Livro
 from utils.csv_manager import read_csv, write_csv
 
+from fastapi.responses import FileResponse
+import zipfile
+import os
+
 router = APIRouter()
 FILEPATH = "data/livros.csv"
 
@@ -17,6 +21,16 @@ def contar_livros():
     livros = read_csv(FILEPATH)
     return {"quantidade": len(livros)}
 
+# Exportar livros para ZIP
+@router.get("/exportar")
+def exportar_livros():
+    zip_path = "data/livros.zip"
+    csv_path = "data/livros.csv"
+
+    with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+        zipf.write(csv_path, arcname="livros.csv")
+
+    return FileResponse(zip_path, media_type="application/zip", filename="livros.zip")
 
 # Adicionar livro
 @router.post("/", response_model=Livro)

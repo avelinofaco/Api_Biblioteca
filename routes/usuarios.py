@@ -2,6 +2,10 @@ from fastapi import APIRouter, HTTPException
 from models import Usuario
 from utils.csv_manager import read_csv, write_csv
 
+import zipfile
+import os 
+from fastapi.responses import FileResponse
+
 router = APIRouter()
 FILEPATH = "data/usuarios.csv"
 
@@ -16,6 +20,19 @@ def listar_usuarios():
 def contar_usuarios():
     usuarios = read_csv(FILEPATH)
     return {"quantidade": len(usuarios)}
+
+# Exportar usuários para ZIP
+@router.get("/exportar")
+def exportar_usuarios():
+    zip_filename = "usuarios.zip"
+    csv_filename = FILEPATH
+
+    # Cria o ZIP com o CSV dentro
+    with zipfile.ZipFile(zip_filename, "w") as zipf:
+        zipf.write(csv_filename, arcname="usuarios.csv")
+
+    # Retorna o ZIP como download
+    return FileResponse(path=zip_filename, filename=zip_filename, media_type="application/zip")
 
 
 # Obter usuário por ID

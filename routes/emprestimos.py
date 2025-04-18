@@ -4,6 +4,10 @@ from utils.csv_manager import read_csv, write_csv
 from routes.usuarios import FILEPATH as USUARIOS_FILE
 from routes.livros import FILEPATH as LIVROS_FILE
 
+from fastapi.responses import FileResponse
+import zipfile
+import os
+
 router = APIRouter()
 FILEPATH = "data/emprestimos.csv"
 
@@ -17,6 +21,17 @@ def listar_emprestimos():
 def quantidade_emprestimos():
     emprestimos = read_csv(FILEPATH)
     return {"quantidade": len(emprestimos)}
+
+# Exportar empréstimos para ZIP
+@router.get("/exportar")
+def exportar_emprestimos():
+    zip_path = "data/emprestimos.zip"
+    csv_path = "data/emprestimos.csv"
+
+    with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+        zipf.write(csv_path, arcname="emprestimos.csv")
+
+    return FileResponse(zip_path, media_type="application/zip", filename="emprestimos.zip")
 
 # Obter um empréstimo específico
 @router.get("/{id}", response_model=Emprestimo)
