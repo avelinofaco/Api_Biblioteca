@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from models import Usuario
 from utils.csv_manager import read_csv, write_csv
 
@@ -9,10 +9,26 @@ from fastapi.responses import FileResponse
 router = APIRouter()
 FILEPATH = "data/usuarios.csv"
 
-# Listar todos os usuários
+# Listar usuários com filtros
 @router.get("/", response_model=list[Usuario])
-def listar_usuarios():
-    return [Usuario(**usuario) for usuario in read_csv(FILEPATH)]
+def listar_usuarios(
+    nome: str = Query(default=None),
+    email: str = Query(default=None),
+    telefone: str = Query(default=None),
+    data_cadastro: str = Query(default=None),  # formato: YYYY-MM-DD
+):
+    usuarios = [Usuario(**u) for u in read_csv(FILEPATH)]
+
+    if nome:
+        usuarios = [u for u in usuarios if nome.lower() in u.nome.lower()]
+    if email:
+        usuarios = [u for u in usuarios if email.lower() in u.email.lower()]
+    if telefone:
+        usuarios = [u for u in usuarios if telefone in u.telefone]
+    if data_cadastro:
+        usuarios = [u for u in usuarios if str(u.data_cadastro) == data_cadastro]
+
+    return usuarios
 
 
 # Contar usuários

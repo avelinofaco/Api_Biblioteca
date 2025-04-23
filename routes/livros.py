@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from models import Livro
 from utils.csv_manager import read_csv, write_csv
 
@@ -10,10 +10,23 @@ router = APIRouter()
 FILEPATH = "data/livros.csv"
 
 # Criar o arquivo CSV se não existir
-@router.get("/", response_model=list[Livro])
-def listar_livros():
-    return [Livro(**livro) for livro in read_csv(FILEPATH)]
 
+@router.get("/", response_model=list[Livro])
+def listar_livros(
+    autor: str = Query(default=None),
+    genero: str = Query(default=None),
+    ano_publicacao: int = Query(default=None),
+):
+    livros = [Livro(**l) for l in read_csv(FILEPATH)]
+
+    if autor:
+        livros = [l for l in livros if l.autor.lower() == autor.lower()]
+    if genero:
+        livros = [l for l in livros if l.genero.lower() == genero.lower()]
+    if ano_publicacao:
+        livros = [l for l in livros if l.ano_publicacao == ano_publicacao]
+
+    return livros
 
 # Contar livros
 @router.get("/quantidade", response_model=dict)

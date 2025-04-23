@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from models import Emprestimo
 from utils.csv_manager import read_csv, write_csv
 from routes.usuarios import FILEPATH as USUARIOS_FILE
@@ -11,10 +11,27 @@ import os
 router = APIRouter()
 FILEPATH = "data/emprestimos.csv"
 
-# Listar todos os empréstimos
+#Listar empréstimos com filtros
+# Criar o arquivo CSV se não existir
 @router.get("/", response_model=list[Emprestimo])
-def listar_emprestimos():
-    return [Emprestimo(**e) for e in read_csv(FILEPATH)]
+def listar_emprestimos(
+    usuario_id: int = Query(default=None),
+    livro_id: int = Query(default=None),
+    data_emprestimo: str = Query(default=None),  # formato: YYYY-MM-DD
+    data_devolucao: str = Query(default=None),   # formato: YYYY-MM-DD
+):
+    emprestimos = [Emprestimo(**e) for e in read_csv(FILEPATH)]
+
+    if usuario_id is not None:
+        emprestimos = [e for e in emprestimos if e.usuario_id == usuario_id]
+    if livro_id is not None:
+        emprestimos = [e for e in emprestimos if e.livro_id == livro_id]
+    if data_emprestimo:
+        emprestimos = [e for e in emprestimos if str(e.data_emprestimo) == data_emprestimo]
+    if data_devolucao:
+        emprestimos = [e for e in emprestimos if str(e.data_devolucao) == data_devolucao]
+
+    return emprestimos
 
 # Obter a quantidade de empréstimos
 @router.get("/quantidade")
