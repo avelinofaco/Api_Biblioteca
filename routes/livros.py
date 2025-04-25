@@ -9,8 +9,8 @@ import os
 router = APIRouter()
 FILEPATH = "data/livros.csv"
 
-# Criar o arquivo CSV se não existir
 
+# Verifica se o arquivo CSV existe, caso contrário, cria um novo
 @router.get("/", response_model=list[Livro])
 def listar_livros(
     autor: str = Query(default=None),
@@ -70,7 +70,7 @@ def atualizar_livro(id: int, livro_atualizado: Livro):
     livros = read_csv(FILEPATH)
     for i, livro in enumerate(livros):
         if int(livro["id"]) == id:
-            livros[i] = livro_atualizado.model_dump()  # <- aqui também
+            livros[i] = livro_atualizado.model_dump() 
             write_csv(FILEPATH, livros)
             return livro_atualizado
     raise HTTPException(status_code=404, detail="Livro não encontrado")
