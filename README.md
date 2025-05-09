@@ -74,6 +74,6 @@ Logging (para registrar operações)
 
 XML.etree.ElementTree (para conversão em XML)
 
-🧠** Considerações Finais**
+🧠 **Considerações Finais**
 
 Este projeto visa proporcionar prática com FastAPI, manipulação de dados persistidos em CSV, e implementação de recursos comuns em aplicações reais, como geração de logs, filtros dinâmicos, compactação de arquivos e verificação de integridade via hash.
