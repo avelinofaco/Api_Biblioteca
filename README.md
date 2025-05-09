@@ -8,17 +8,17 @@ Este projeto consiste no desenvolvimento de uma API RESTful utilizando o framewo
 
 Foram implementadas 3 entidades, cada uma com atributos e CSV próprios:
 
-**Produto**
+**Livro**
 
-Atributos: id, nome, categoria, preco, data_criacao
+Atributos: id, titulo, autor, genero, ano_publicação, disponivel.
 
-**Cliente**
+**Usuário**
 
-Atributos: id, nome, email, cpf_cnpj, data_cadastro
+Atributos: id, nome, email, telefone, data_cadastro.
 
-**Pedido**
+**Emprestimo**
 
-Atributos: id, cliente_id, data_pedido, status, valor_total
+Atributos: id, livro_id, usuario_id, data_emprestimo, data_devolucao, status.
 
 🚀 **Funcionalidades Implementadas**
 
@@ -44,7 +44,7 @@ Gera um arquivo .zip contendo o CSV da entidade e permite download.
 
 🔍** F5. Filtros por Atributo**
 
-Permite a filtragem de registros por campos específicos como categoria, intervalo de preço, etc.
+Permite a filtragem(listar) de registros por campos específicos como autor, genero, ano_publicacao.
 
 🔐** F6. Hash SHA256 do CSV**
 
