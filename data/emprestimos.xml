@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<emprestimos>
+  <emprestimo>
+    <id>1</id>
+    <livro_id>2</livro_id>
+    <usuario_id>1</usuario_id>
+    <data_emprestimo>2025-04-17</data_emprestimo>
+    <data_devolucao>2025-04-19</data_devolucao>
+    <status>pendente</status>
+  </emprestimo>
+  <emprestimo>
+    <id>2</id>
+    <livro_id>3</livro_id>
+    <usuario_id>2</usuario_id>
+    <data_emprestimo>2025-04-17</data_emprestimo>
+    <data_devolucao>2025-04-20</data_devolucao>
+    <status>pendente</status>
+  </emprestimo>
+  <emprestimo>
+    <id>3</id>
+    <livro_id>4</livro_id>
+    <usuario_id>3</usuario_id>
+    <data_emprestimo>2025-04-17</data_emprestimo>
+    <data_devolucao>2025-04-21</data_devolucao>
+    <status>devolvido</status>
+  </emprestimo>
+</emprestimos>

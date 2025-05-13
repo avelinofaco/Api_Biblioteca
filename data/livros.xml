@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<livros>
+  <livro>
+    <id>2</id>
+    <titulo>informatica</titulo>
+    <autor>Joao</autor>
+    <genero>romance</genero>
+    <ano_publicacao>1999</ano_publicacao>
+    <disponivel>False</disponivel>
+  </livro>
+  <livro>
+    <id>1</id>
+    <titulo>matematica basica</titulo>
+    <autor>aragao</autor>
+    <genero>literatura</genero>
+    <ano_publicacao>1997</ano_publicacao>
+    <disponivel>True</disponivel>
+  </livro>
+  <livro>
+    <id>3</id>
+    <titulo>O Código da Vinci</titulo>
+    <autor>Dan Brown</autor>
+    <genero>Suspense</genero>
+    <ano_publicacao>2003</ano_publicacao>
+    <disponivel>False</disponivel>
+  </livro>
+  <livro>
+    <id>4</id>
+    <titulo>Dom Casmurro</titulo>
+    <autor>Machado de Assis</autor>
+    <genero>Romance</genero>
+    <ano_publicacao>1899</ano_publicacao>
+    <disponivel>False</disponivel>
+  </livro>
+  <livro>
+    <id>5</id>
+    <titulo>A Revolução dos Bichos</titulo>
+    <autor>George Orwell</autor>
+    <genero>Sátira</genero>
+    <ano_publicacao>1945</ano_publicacao>
+    <disponivel>True</disponivel>
+  </livro>
+  <livro>
+    <id>6</id>
+    <titulo>O Hobbit</titulo>
+    <autor>J.R.R. Tolkien</autor>
+    <genero>Fantasia</genero>
+    <ano_publicacao>1937</ano_publicacao>
+    <disponivel>True</disponivel>
+  </livro>
+  <livro>
+    <id>7</id>
+    <titulo>Harry Potter e a Pedra Filosofal</titulo>
+    <autor>J.K. Rowling</autor>
+    <genero>Fantasia</genero>
+    <ano_publicacao>1997</ano_publicacao>
+    <disponivel>True</disponivel>
+  </livro>
+  <livro>
+    <id>0</id>
+    <titulo>string</titulo>
+    <autor>string</autor>
+    <genero>string</genero>
+    <ano_publicacao>0</ano_publicacao>
+    <disponivel>False</disponivel>
+  </livro>
+</livros>

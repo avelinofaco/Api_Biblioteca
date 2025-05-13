@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<usuarios>
+  <usuario>
+    <id>1</id>
+    <nome>faco</nome>
+    <email>faco123@gmail.com</email>
+    <telefone>85984765643</telefone>
+    <data_cadastro>2025-04-17</data_cadastro>
+  </usuario>
+  <usuario>
+    <id>2</id>
+    <nome>joao</nome>
+    <email>joao@gmail.com</email>
+    <telefone>88987654321</telefone>
+    <data_cadastro>2025-04-16</data_cadastro>
+  </usuario>
+  <usuario>
+    <id>3</id>
+    <nome>Felipe</nome>
+    <email>felipe@gmail.com</email>
+    <telefone>88985675643</telefone>
+    <data_cadastro>2025-04-16</data_cadastro>
+  </usuario>
+  <usuario>
+    <id>4</id>
+    <nome>Aragao</nome>
+    <email>aragao@gmail.com</email>
+    <telefone>88985789089</telefone>
+    <data_cadastro>2025-04-17</data_cadastro>
+  </usuario>
+  <usuario>
+    <id>5</id>
+    <nome>George</nome>
+    <email>george@gmail.com</email>
+    <telefone>85987543621</telefone>
+    <data_cadastro>2025-04-17</data_cadastro>
+  </usuario>
+</usuarios>

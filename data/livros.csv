@@ -5,14 +5,5 @@ id,titulo,autor,genero,ano_publicacao,disponivel
 4,Dom Casmurro,Machado de Assis,Romance,1899,False
 5,A Revolução dos Bichos,George Orwell,Sátira,1945,True
 6,O Hobbit,J.R.R. Tolkien,Fantasia,1937,True
-7,O Último Horizonte,Laura Mendes,Ficção Científica,2021,True
-8,Ecos do Silêncio,Rafael Souza,Drama,2018,True
-9,Sob a Luz da Meia-Noite,Camila Ribeiro,Romance,2020,True
-10,Fragmentos do Tempo,João Azevedo,Fantasia,2015,True
-11,Códigos do Infinito,Helena Duarte,Suspense/Techno,2023,True
-12,Além das Estrelas,Felipe Martins,Aventura,2017,True
-14,O Jardim das Palavras,Bruno Figueira,Poesia,2016,False
-15,Rastros da Verdade,Daniel Monteiro,Policial,2022,True
-16,Asas de Vidro,Isabela Nogueira,Drama Psicológico,2024,True
-13,Calculo diferencial,Carlos Igor,Literatura,2003,False
-17,Persistencia,Victor Pinheiro,Programacao,2017,True
+7,Harry Potter e a Pedra Filosofal,J.K. Rowling,Fantasia,1997,True
+0,string,string,string,0,False

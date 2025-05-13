@@ -1,16 +1,18 @@
 from fastapi import APIRouter, HTTPException, Query
 from models import Usuario
 from utils.csv_manager import read_csv, write_csv
-
+from typing import List
+from hashlib import sha256
 import zipfile
-import os 
 from fastapi.responses import FileResponse
+from utils.logger import logger
+from utils.xml import csv_xml
 
 router = APIRouter()
 FILEPATH = "data/usuarios.csv"
 
 # Listar usuários com filtros
-@router.get("/", response_model=list[Usuario])
+@router.get("/", response_model=List[Usuario])
 def listar_usuarios(
     nome: str = Query(default=None),
     email: str = Query(default=None),
@@ -50,6 +52,12 @@ def exportar_usuarios():
     # Retorna o ZIP como download
     return FileResponse(path=zip_filename, filename=zip_filename, media_type="application/zip")
 
+# Hash do livro no zip
+@router.get("/hash")
+def hash_csv():
+    with open("data/usuarios.zip", "rb") as stream:
+        hash = sha256(stream.read()).hexdigest()
+        return {"hash": hash}
 
 # Obter usuário por ID
 @router.get("/{usuario_id}", response_model=Usuario)
@@ -68,6 +76,7 @@ def adicionar_usuario(usuario: Usuario):
         raise HTTPException(status_code=400, detail="ID já existe.")
     usuarios.append(usuario.model_dump())
     write_csv(FILEPATH, usuarios)
+    logger.info(f"Usuário Criado: {usuario}")
     return usuario
 
 # Atualizar usuário
@@ -78,6 +87,7 @@ def atualizar_usuario(usuario_id: int, usuario_atualizado: Usuario):
         if int(usuario["id"]) == usuario_id:
             usuarios[index] = usuario_atualizado.model_dump()
             write_csv(FILEPATH, usuarios) 
+            logger.info(f"Usuário Atualizado: {usuario}")
             return usuario_atualizado
     raise HTTPException(status_code=404, detail="Usuário não encontrado.")
 
@@ -89,6 +99,19 @@ def deletar_usuario(usuario_id: int):
         if int(usuario["id"]) == usuario_id:
             del usuarios[index]
             write_csv(FILEPATH, usuarios)
+            logger.info(f"Usuário Deletado: {usuario}")
             return {"mensagem": "Usuário deletado com sucesso"}
     raise HTTPException(status_code=404, detail="Usuário não encontrado.")
 
+#CSV para XML
+@router.get("/csv-para-xml/{nome_csv}")
+def escrever_dados_xml_de_csv():
+    
+    nome_base = "usuarios"
+    caminho_csv = f"data/{nome_base}.csv"
+    caminho_xml = f"data/{nome_base}.xml"
+
+    csv_xml(caminho_csv, nome_base, caminho_xml)
+    logger.info(f"Arquivo {nome_base}.csv convertido para XML")
+    
+    return FileResponse(path=caminho_xml, filename=f"{nome_base}.xml", media_type="application/xml")

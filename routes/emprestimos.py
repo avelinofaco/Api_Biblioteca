@@ -3,17 +3,19 @@ from models import Emprestimo
 from utils.csv_manager import read_csv, write_csv
 from routes.usuarios import FILEPATH as USUARIOS_FILE
 from routes.livros import FILEPATH as LIVROS_FILE
-
+from utils.logger import logger
+from typing import List
+from hashlib import sha256
 from fastapi.responses import FileResponse
 import zipfile
-import os
+from utils.xml import csv_xml
 
 router = APIRouter()
 FILEPATH = "data/emprestimos.csv"
 
 #Listar empréstimos com filtros
 # Criar o arquivo CSV se não existir
-@router.get("/", response_model=list[Emprestimo])
+@router.get("/", response_model=List[Emprestimo])
 def listar_emprestimos(
     usuario_id: int = Query(default=None),
     livro_id: int = Query(default=None),
@@ -50,6 +52,15 @@ def exportar_emprestimos():
 
     return FileResponse(zip_path, media_type="application/zip", filename="emprestimos.zip")
 
+
+# Hash dos emprestimos no zip
+@router.get("/hash")
+def hash_csv():
+    with open("data/emprestimos.zip", "rb") as stream:
+        hash = sha256(stream.read()).hexdigest()
+        return {"hash": hash}
+
+
 # Obter um empréstimo específico
 @router.get("/{id}", response_model=Emprestimo)
 def obter_emprestimo(id: int):
@@ -85,6 +96,9 @@ def adicionar_emprestimo(emprestimo: Emprestimo):
 
     emprestimos.append(emprestimo.model_dump())
     write_csv(FILEPATH, emprestimos)
+    
+    logger.info(f"Emprestimo Realizado: {emprestimo}")
+    
     return emprestimo
 
 # Atualizar um empréstimo existente
@@ -95,6 +109,7 @@ def atualizar_emprestimo(id: int, dados: Emprestimo):
         if int(e["id"]) == id:
             emprestimos[i] = dados.model_dump()
             write_csv(FILEPATH, emprestimos)
+            logger.info(f"Emprestimo Atualizado: {e}")
             return dados
     raise HTTPException(status_code=404, detail="Empréstimo não encontrado.")
 
@@ -106,4 +121,19 @@ def deletar_emprestimo(id: int):
     if len(novos) == len(emprestimos):
         raise HTTPException(status_code=404, detail="Empréstimo não encontrado.")
     write_csv(FILEPATH, novos)
+    logger.info(f"Emprestimo Deletado: Emprestimo {id}")
     return {"detail": "Empréstimo excluído com sucesso."}
+
+
+#CSV para XML
+@router.get("/csv-para-xml/{nome_csv}")
+def escrever_dados_xml_de_csv():
+    
+    nome_base = "emprestimos"
+    caminho_csv = f"data/{nome_base}.csv"
+    caminho_xml = f"data/{nome_base}.xml"
+
+    csv_xml(caminho_csv, nome_base, caminho_xml)
+    logger.info(f"Arquivo {nome_base}.csv convertido para XML")
+    
+    return FileResponse(path=caminho_xml, filename=f"{nome_base}.xml", media_type="application/xml")
