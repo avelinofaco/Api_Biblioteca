@@ -79,7 +79,7 @@ XML.etree.ElementTree (para conversão em XML)
 
 **Clone o repositório:**
 
-git clone https://github.com/seu-usuario/Api-biblioteca.git
+git clone https://github.com/avelinofaco/Api_Biblioteca.git
 
 cd Api-biblioteca
 
