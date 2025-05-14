@@ -79,9 +79,9 @@ XML.etree.ElementTree (para conversão em XML)
 
 **Clone o repositório:**
 
-git clone https://github.com/seu-usuario/sistema-biblioteca.git
+git clone https://github.com/seu-usuario/Api-biblioteca.git
 
-cd sistema-biblioteca
+cd Api-biblioteca
 
 **Crie e ative um ambiente virtual (recomendado):**
 python -m venv venv
